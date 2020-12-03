@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.demo.sys.mapper.FreeIpMapper">
+
+    <select id="iSelectIpList" resultType="com.demo.demo.sys.result.RetIp">
+        select free_ip.id, user_name, free_ip.job_number, department_name,free_ip.ip
+        from user_info,department,free_ip
+        where free_ip.job_number = user_info.job_number and user_info.dep_id = department.id;
+    </select>
+</mapper>

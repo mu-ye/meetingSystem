@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.demo.sys.mapper.TitleMapper">
+    <select id="iSelectTextByFormId" resultType="com.demo.demo.sys.entity.Title">
+        select title.id ,title_name,title_type,data_type,data,prompt
+        from form_title,title
+        where form_title.form_id = #{formId} and form_title.alive = 0  and form_title.title_id = title.id order by auto_index DESC
+    </select>
+    <select id="iSelectFormTitlesByFormIdGroupByAutoIndex" resultType="com.demo.demo.core.ret.RetTitle">
+        select form_title.id ,title_name,title_type,data_type,data,prompt,auto_index,width
+        from form_title,title
+        where form_title.form_id = #{formId} and form_title.alive = 0 and form_title.title_id = title.id order by auto_index DESC
+    </select>
+</mapper>

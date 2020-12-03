@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html style="height: 100%; margin: 0;" lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--这边规定了默认的跳转路径-->
+    <base th:href="${#request.getContextPath()}+'/'">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>无纸化会议预览系统</title>
+</head>
+<body>
+<div>
+    <input id="jobNumber" type="hidden" th:value="${jobNumber}" />
+</div>
+<div id="initShowDiv">
+
+</div>
+<div id="initDisplayDiv" style="display: none">
+
+</div>
+</body>
+<!-- 添加自己的strapboot js文件 -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://g.alicdn.com/dingding/dingtalk-jsapi/2.8.8/dingtalk.open.js"></script>
+<script src="../js/sys/CasLogin.js"></script>
+</body>
+</html>

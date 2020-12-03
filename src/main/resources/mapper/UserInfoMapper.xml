@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.demo.sys.mapper.UserInfoMapper">
+
+<!--查询所有ips-->
+<select id="ISelectList" resultType="com.demo.demo.sys.result.RetUserInfo">
+        SELECT user_info.id , user_name , job_number , department_name
+        FROM   user_info,department
+        WHERE user_info.dep_id = department.id
+    </select>
+</mapper>

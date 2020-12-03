@@ -1,0 +1,13 @@
+
+  <select id="getListByFileState" resultType="com.njdt.meetingreview.pojo.RetMeetingChecking" parameterType="java.lang.Integer">
+    SELECT menu.meetingID,meetingName,other_file.id
+    FROM meeting,menu,other_file
+    WHERE menu.meetingID=meeting.id AND menu.id=other_file.menu_id AND meeting.meetingState=0 AND other_file.file_state=#{fileState}
+  </select>
+
+
+  <select id="getListByUserName" resultType="com.njdt.meetingreview.pojo.RetMeetingChecking" parameterType="java.lang.Integer">
+    SELECT menu.meetingID,meetingName,other_file.id
+    FROM meeting,menu,other_file
+    WHERE menu.meetingID=meeting.id AND menu.id=other_file.menu_id AND meeting.meetingState=0  AND  cheak_state like '%${checkState}%';
+  </select>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4 ">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>无纸化会议系统 </title>
+    <!--这边规定了默认的跳转路径-->
+    <base th:href="${#request.getContextPath()}+'/'">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css"  rel="stylesheet"/>
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"  rel="stylesheet"/>
+    <link href="../build/css/custom.min.css"  rel="stylesheet"/>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../bootstrapPlugins/bootstrap-table/bootstrap-table.js"></script>
+    <script src="../bootstrapPlugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../bootstrapPlugins/bootstrap-treeView/treeview.js"></script>
+    <!--Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.css" rel="stylesheet">
+    <!--validator-->
+    <script src="../bootstrapPlugins/bootstrapValidator/bootstrapValidator.min.js"></script>
+    <link rel="stylesheet" href="../bootstrapPlugins/bootstrapValidator/bootstrapValidator.min.css">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <!--左面菜单栏-->
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="index/main" class="site_title"><span>无纸化会议系统</span></a>
+                </div>
+                <div class="clearfix"></div>
+                <br>
+                <!-- 侧边栏导航开始sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>BY 电信院</h3>
+                        <ul class="nav side-menu">
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_CHECK')"><a href="/index/todo" ><i class="fa fa-desktop"></i> 我的待办 </a>
+                                <!-- <li><a href="index/gotoMain"><i class="fa fa-home"></i> 主页 </a>-->
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT','ROLE_UPLOAD')"><a><i class="fa fa-windows"></i> 会议管理 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <!--<li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT')"><a href="index/newMeeting">新建会议</a></li>-->
+                                    <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT')"><a href="index/manageMeeting">我的会议</a></li>
+                                    <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_UPLOAD')"><a href="index/toCheck">待上传会议</a></li>
+                                    <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT')"><a href="index/historyMeeting">历史会议</a></li>
+                                </ul>
+                            </li>
+
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT')"><a><i class="fa fa-copy"></i> 模板管理 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="index/newTemplate">新建模板</a></li>
+                                    <li><a href="index/manageTemplate">我的模板</a></li>
+                                </ul>
+                            </li>
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT')"><a><i class="fa fa-edit"></i> 表单管理 <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="index/manageForm">我的表单</a></li>
+                                    <li><a href="index/manageTitle">我的表头</a></li>
+                                </ul>
+                                <!--                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT')"><a href="/index/manageRole" ><i class="fa fa-crosshairs"></i> 权限管理 </a>-->
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT')"><a href="/index/manageGroup" ><i class="fa fa-group"></i> 群组管理 </a>
+                                <!--                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT')"><a href="/index/manageDepartment" ><i class="fa fa-briefcase"></i> 部门管理 </a>-->
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT')"><a href="/index/manageUser" ><i class="fa fa-user"></i> 用户管理 </a>
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT')"><a href="/index/manageLeader" ><i class="fa fa-user-secret"></i>领导管理</a>
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT')"><a href="/index/manageIp" ><i class="fa fa-info"></i> IP管理 </a>
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEETING_CREAT')"><a href="/index/sendMessage" ><i class="fa fa-send"></i> 钉钉消息</a>
+                            <li><a href="index/login" ><i class="fa fa-sign-out"></i> 退出 </a>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 侧边栏底部 工具 开始/menu footer buttons -->
+                <div class="sidebar-footer hidden-small 1">
+                </div>
+                <!-- 侧边栏底部工具 结束/menu footer buttons -->
+            </div>
+        </div>
+        <!--左面菜单栏结束-->
+
+        <!-- 右边  导航栏 -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <div class="nav toggle">
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <nav class="nav navbar-nav">
+                    <ul class="navbar-right">
+                        <li  style="padding-left: 15px;">
+                            欢迎 ： <span id="userName"></span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- 右边  导航栏结束 -->
+        <!-- 主体内容开始 /page content -->
+        <div class="right_col" role="main">
+            <!--页面主体内容-->
+            <div class="row" >
+                <!--占全部   一行-->
+                <div class="col-md-12 col-sm-12" >
+                    <!--一个面板-->
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><span><b>群组重命名</b></span> ：</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="form-group">
+                                    <input class="province form-control" name="groupName" id="editGroupName" type="text"></input>
+                                </div>
+                                <div class="form-group">
+                                   <button type="button" id="saveBtn" class="btn btn-info" style="width: 100%">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><span><b>群组编辑</b></span> ：</h2>
+                            <div class="clearfix"></div>
+                        </div>
+
+
+                        <div class="x_content">
+                            <!--表格工具栏-->
+                            <div id="DepartmentTableToolbar">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-info" id = "addDepartment">添加用户
+                                    </button>
+                                </div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" id="delDepartment">删除用户
+                                    </button>
+                                </div>
+                            </div>
+                            <!--表格-->
+                            <table class="table table-striped table-bordered table-hover" id="DepartmentTable" style=" margin-top: 1%;"></table>
+                            <!--添加I弹窗-->
+                            <div class="modal fade" id="addDepartmentModel" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <b><span>添加用户</span></b>
+                                            <!-- 关闭按钮 -->
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- 此处填写弹框主体 -->
+                                            <div class="row">
+                                                <div class="col-sm-10 col-sm-offset-1">
+                                                    <label>按工号查询 ：</label>
+                                                </div>
+                                                <div class="col-sm-8 col-sm-offset-1">
+                                                    <input class="province form-control" name="jobNumber" id="SearchJobNumber" type="text"></input>
+                                                </div>
+                                                <div class="col-sm-1 offset-sm-1">
+                                                    <button type="submit"  id="jobNumberSearch" class="btn btn-info">查询</button>
+                                                </div>
+                                            </div>
+                                            <div class="row" id="showUserInfo">
+                                                <br>
+                                                <div class="col-sm-10 col-sm-offset-1" >
+                                                    <div class="form-group">
+                                                        <label>用户信息 : </label>
+                                                        <textarea id="textAreaUserInfoText" class="form-control" rows="3"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-10 col-sm-offset-1" >
+                                                    <button class="btn btn-info" style="width: 100%" id="btnAdd"> 添加 </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- 主体内容结束 /page content -->
+<!-- footer content -->
+<footer>
+    <div class="pull-right">
+        <span><b>南京地铁运营有限责任公司</b></span>
+    </div>
+    <div class="clearfix"></div>
+</footer>
+<!-- /footer content -->
+</div>
+</div>
+<!-- FastClick -->
+<script src="../vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="../vendors/nprogress/nprogress.js"></script>
+<!-- Chart.js -->
+<script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+<!-- jQuery Sparklines -->
+<script src="../vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<!-- Flot -->
+<script src="../vendors/Flot/jquery.flot.js"></script>
+<script src="../vendors/Flot/jquery.flot.pie.js"></script>
+<script src="../vendors/Flot/jquery.flot.time.js"></script>
+<script src="../vendors/Flot/jquery.flot.stack.js"></script>
+<script src="../vendors/Flot/jquery.flot.resize.js"></script>
+<!-- Flot plugins -->
+<script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+<script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+<script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+<!-- DateJS -->
+<script src="../vendors/DateJS/build/date.js"></script>
+<!-- bootstrap-daterangepicker -->
+<!-- <script src="../vendors/moment/min/moment.min.js"></script>
+ <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>-->
+
+<!-- Custom Theme Scripts -->
+<script src="../build/js/custom.min.js"></script>
+
+<script src="../layer-v3.1.1/layer/layer.js"></script>
+<script src="../js/sys/EditGroup.js"></script>
+</body>
+</html>

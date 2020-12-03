@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.demo.sys.mapper.MeetingMenuMapper">
+
+    <select id="iSelectCheckRole" resultType="java.lang.Integer">
+        select meeting.id
+        from meeting,meeting_menu
+        where  meeting.id = meeting_menu.meeting_id and meeting.start_date >=#{nowLocalDateTime} and check_list like concat('%',#{jobNumber,jdbcType=VARCHAR},'%') group by meeting_id
+    </select>
+    <select id="iSelectMeetingListUpLoad" resultType="com.demo.demo.sys.entity.Meeting">
+        select meeting.id,meeting.name,address,start_date,attend_password,type
+        from meeting,meeting_menu
+        where  meeting.id = meeting_menu.meeting_id and meeting.start_date >=#{nowLocalDateTime} and file_up_job_numbers like concat('%',#{jobNumber,jdbcType=VARCHAR},'%') group by meeting_id
+    </select>
+</mapper>

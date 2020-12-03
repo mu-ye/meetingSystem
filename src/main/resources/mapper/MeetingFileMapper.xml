@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.demo.sys.mapper.MeetingFileMapper">
+
+    <select id="iSelectToCheckFiles" resultType="com.demo.demo.sys.result.RetToCheckFile">
+        select meeting_file.id,meeting.name,upload_job_number,meeting_file.upload_user_name,meeting_file.file_name,pass,refuse_reason,meeting_file.check_list
+        from meeting,meeting_menu,meeting_file
+        where  meeting.id =meeting_menu.meeting_id and meeting_menu.id = meeting_file.meeting_menu_id and pass = 0 and meeting_file.pass = 0 and meeting_file.check_list like concat('%',#{jobNumber,jdbcType=VARCHAR},'%') and meeting.start_date >= #{nowDate}
+    </select>
+
+    <select id="iSelectNoCheckFiles" resultType="com.demo.demo.sys.result.RetFiles">
+        select id,upload_job_number,upload_user_name,file_name,alive
+        from   meeting_file
+        where  meeting_file.meeting_menu_id = #{menuId} and meeting_file.pass = 2 and meeting_file.check_list = "[Y]" and meeting_file.upload_job_number = #{jobNumber};
+    </select>
+
+    <select id="iSelectToCheckedFiles" resultType="com.demo.demo.sys.result.RetToCheckFile">
+        select meeting_file.id,meeting.name,upload_job_number,meeting_file.upload_user_name,meeting_file.file_name,pass,refuse_reason,meeting_file.check_list
+        from meeting,meeting_menu,meeting_file
+        where  meeting.id =meeting_menu.meeting_id and meeting_menu.id = meeting_file.meeting_menu_id and meeting_file.check_list like concat('%',#{jobNumber,jdbcType=VARCHAR},'%') and meeting.start_date >= #{nowDate};
+    </select>
+
+    <select id="iSelectMeetingFiles" resultType="com.demo.demo.sys.result.RetFiles">
+        select file_name,upload_user_name,upload_job_number,text,meeting_file.id,meeting_file.alive
+        from meeting_menu,meeting_file
+        where  meeting_menu.meeting_id = #{meetingId} and meeting_menu.id = meeting_file.meeting_menu_id and pass = 2
+    </select>
+
+    <select id="iSelectAttendDepartment" resultType="java.lang.String">
+        select distinct meeting_file.dep_ids
+        from  meeting_file,meeting_menu
+        where meeting_menu.meeting_id = #{meetingId} and meeting_menu.id = meeting_file.meeting_menu_id and meeting_file.pass = 2 and meeting_file.alive = 0;
+    </select>
+
+    <select id="iSelectDownloadFiles" resultType="com.demo.demo.sys.result.RetDownloadFile">
+        select file_name,upload_user_name,upload_job_number,meeting_file.id,meeting_file.url
+        from meeting_file
+        where  meeting_file.meeting_menu_id = #{meetingId} and alive = 0 and pass = 2
+    </select>
+
+</mapper>

@@ -1,0 +1,52 @@
+# 切换不同的环境 dev : 开发环境 ； prod : 正式环境 ； test： 测试环境
+spring:
+  profiles:
+    active: dev
+
+# 设置日志保存位置（每天自动打包一次）
+logging:
+  file:
+    path: C:/Log/noPaperMeeting/back
+
+  # 设置抛出全局异常处理
+  mvc:
+    throw-exception-if-no-handler-found: 'true '   #SpringBoot 当出现 404 错误时, 直接抛出异常
+  resources:
+    add-mappings: 'false '                         #SpringBoot 不要为我们工程中的资源文件建立映射.
+
+  # 配置 springboot热部署
+  thymeleaf:
+    cache: false
+  devtools:
+    restart:
+      enabled: true
+      exclude: static/**    #修改static 文件夹下的文件不用重启项目
+  template:
+    cache: false
+
+# cas 配置
+cas:
+  # cas 服务器的访问地址
+  server-url-prefix: http://***
+  server-login-url: http://***
+  #  集成cas 系统的本地访问地址
+  client-host-url: http://***
+  #client-host-url: http://***
+  validation-type: CAS
+  # 配置 cas 要去拦截的地址（只拦截 /cas/login 这个地址）
+  authentication-url-patterns: /cas/login
+# 设置session超时时间
+server:
+  servlet:
+    session:
+      timeout: 1800
+  # 设置tomcat超时时间 防止网络慢造成请求超时问题
+  tomcat:
+    min-spare-threads: 20
+    max-threads: 100
+    connection-timeout: 5000
+
+
+
+
+
